@@ -1,77 +1,22 @@
 // display current day in planner w/ ID 
-function getHeaderDate() {
-    var currentDate = moment.js().format('dddd MMMM DD[,] YYYY');
-$("#currentDay").text(currentDate); 
-};
 
-// func to get header for current date 
-var today = new Date();
-var currentTime = today.getHours();
+$("#currentDay").text("Today is " + (moment().format('dddd, MMMM Do YYYY')));
 
-var update = setInterval( function(){
-    date = moment(new Date());
-    $("#current-time").text((moment().format('h:mm a')));
+// selectors for each column 
+$("#hr-7 .reservation").val(localStorage.getItem("hr-7"));
+$("#hr-8 .reservation").val(localStorage.getItem("hr-8"));
+$("#hr-9 .reservation").val(localStorage.getItem("hr-9"));
+$("#hr-10 .reservation").val(localStorage.getItem("hr-10"));
+$("#hr-11 .reservation").val(localStorage.getItem("hr-11"));
+$("#hr-12 .reservation").val(localStorage.getItem("hr-12"));
+$("#hr-13 .reservation").val(localStorage.getItem("hr-13"));
+$("#hr-14 .reservation").val(localStorage.getItem("hr-14"));
+$("#hr-15 .reservation").val(localStorage.getItem("hr-15"));
+$("#hr-16 .reservation").val(localStorage.getItem("hr-16"));
+$("#hr-17 .reservation").val(localStorage.getItem("hr-17"));
+$("#hr-18 .reservation").val(localStorage.getItem("hr-18"));
+$("#hr-19 .reservation").val(localStorage.getItem("hr-19"));
 
-}, 1000)
-setInterval(update, 1000);
-//func to save date to local storage 
-var userInputField = $("#dataTime")
-renderLastSaved();
-
-//function to display any data stored 
-// saves data to localStorage
-function saveReminders() {
-    localStorage.setItem("myDay", JSON.stringify(myDay));
-}
-// sets any data in localStorage to the view
-function displayReminders() {
-    myDay.forEach(function (_thisHour) {
-        $(`#${_thisHour.id}`).val(_thisHour.reminder);
-    })
-}
-// sets any existing localStorage data to the view if it exists
-function init() {
-    var storedDay = JSON.parse(localStorage.getItem("myDay"));
-    if (storedDay) {
-        myDay = storedDay;
-    }
-    saveReminders();
-    displayReminders();
-}
-// creates schdeduler data
-   var hourPlan = $("<div>")
-   .attr({
-       "class": "col-md-9 description p-0"
-   });
-var planData = $("<textarea>");
-hourPlan.append(planData);
-planData.attr("id", thisHour.id);
-if (thisHour.time < moment().format("HH")) {
-   planData.attr ({
-       "class": "past", 
-   })
-} else if (thisHour.time === moment().format("HH")) {
-   planData.attr({
-       "class": "present"
-   })
-} else if (thisHour.time > moment().format("HH")) {
-   planData.attr({
-       "class": "future"
-   })
-}
-
-
-//save btn 
-var saveButton = $("<i class='far fa-save fa-lg'></i>")
-var savePlan = $("<button>")
-    .attr({
-        "class": "col-md-1 saveBtn"
-});
-savePlan.append(saveButton);
-hourRow.append(hourField, hourPlan, savePlan);
-
-// loads any existing localstorage data after components created
-init();
 // saves data to be used in localStorage
 $(".saveBtn").on("click", function(){
     // set a variable to get values from text area and times
