@@ -1,5 +1,5 @@
 // display current day in planner w/ ID 
-
+var time = moment();
 $("#currentDay").text("Today is " + (moment().format('dddd, MMMM Do YYYY')));
 
 // selectors for each column 
@@ -28,6 +28,33 @@ $(".saveBtn").on("click", function(){
     localStorage.setItem(time, value);
 });
 // load any existing local storage after init 
+const EXPIRE_TIME = 1000*60*1440;
+localStorage.setItem('storedData', JSON.stringify({
+  time: new Date(),
+  data: ""
+}));
 
+// start the time out
 
+setTimeout(function() {
+    localStorage.removeItem('storedData');
+}, EXPIRE_TIME);
+function pastPresentFuture() {
+    hour = time.hours();
+    $(".reservation").each(function () {
+        var thisHour = parseInt($(this).attr("id"));
+
+        if (thisHour > hour) {
+            $(this).addClass("future")
+        }
+        else if (thisHour === hour) {
+            $(this).addClass("present");
+        }
+        else {
+            $(this).addClass("past");
+        }
+    })
+}
+
+pastPresentFuture();
 
